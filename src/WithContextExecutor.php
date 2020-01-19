@@ -1,12 +1,11 @@
 <?php
-/**
- * @file src/Korowai/Lib/Context/WithContextExecutor.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
@@ -46,7 +45,7 @@ class WithContextExecutor implements ExecutorInterface
     /**
      * Calls user function within context.
      *
-     * @param callable $func The user function to be called
+     * @param  callable $func The user function to be called
      * @return mixed The value returned by ``$func``.
      */
     public function __invoke(callable $func)
@@ -76,7 +75,7 @@ class WithContextExecutor implements ExecutorInterface
      * Invokes ``enterContext()`` method on the context managers from
      * ``$this->context`` array.
      *
-     * @param int $i
+     * @param  int $i
      *          Index used by the internal loop (passed by reference, so
      *          its value is not lost when an exception is thrown).
      *
@@ -96,7 +95,7 @@ class WithContextExecutor implements ExecutorInterface
      * Invokes ``exitContext()`` method on the context managers from
      * ``$this->context`` array.
      *
-     * @param int $i
+     * @param  int $i
      *          Index used by the internal loop (passed by reference, so its
      *          value is not lost when an exception is thrown).
      * @param \Throwable $exception
@@ -107,7 +106,7 @@ class WithContextExecutor implements ExecutorInterface
      *          An exception or null (if the exception was handled by one of
      *          the context managers).
      */
-    protected function exitContext(int &$i, ?\Throwable $exception = null) : ?\Throwable
+    protected function exitContext(int &$i, \Throwable $exception = null) : ?\Throwable
     {
         for ($i--; $i >= 0; $i--) {
             if ($this->context[$i]->exitContext($exception)) {

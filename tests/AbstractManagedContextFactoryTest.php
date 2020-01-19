@@ -1,19 +1,18 @@
 <?php
-/**
- * @file Tests/AbstractManagedContextFactoryTest.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
 
-namespace Korowai\Lib\Context\Tests;
+namespace Korowai\Tests\Lib\Context;
 
-use PHPUnit\Framework\TestCase;
+use Korowai\Testing\TestCase;
 
 use Korowai\Lib\Context\ContextFactoryInterface;
 use Korowai\Lib\Context\ContextManagerInterface;
@@ -28,8 +27,7 @@ class AbstractManagedContextFactoryTest extends TestCase
 {
     public function test__implements__ContextFactoryInterface()
     {
-        $interfaces = class_implements(AbstractManagedContextFactory::class);
-        $this->assertContains(ContextFactoryInterface::class, $interfaces);
+        $this->assertImplementsInterface(ContextFactoryInterface::class, AbstractManagedContextFactory::class);
     }
 
     public function test__implements__ContextManagerInterface()

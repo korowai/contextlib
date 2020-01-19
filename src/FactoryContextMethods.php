@@ -1,12 +1,11 @@
 <?php
-/**
- * @file src/Korowai/Lib/Context/FactoryContextMethods.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
@@ -34,7 +33,7 @@ trait FactoryContextMethods
      *
      * @return bool false
      */
-    public function exitContext(?\Throwable $exception = null) : bool
+    public function exitContext(\Throwable $exception = null) : bool
     {
         ContextFactoryStack::getInstance()->pop();
         return false;

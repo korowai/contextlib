@@ -1,12 +1,11 @@
 <?php
-/**
- * @file src/Korowai/Lib/Context/TrivialValueWrapper.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
@@ -29,7 +28,7 @@ class TrivialValueWrapper implements ContextManagerInterface
     /**
      * Initializes the object.
      *
-     * @param mixed $value The value being wrapped by the object.
+     * @param  mixed $value The value being wrapped by the object.
      */
     public function __construct($value)
     {
@@ -56,7 +55,7 @@ class TrivialValueWrapper implements ContextManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function exitContext(?\Throwable $exception = null) : bool
+    public function exitContext(\Throwable $exception = null) : bool
     {
         return false;
     }

@@ -1,19 +1,18 @@
 <?php
-/**
- * @file Tests/ContextFactoryStackTest.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
 
-namespace Korowai\Lib\Context\Tests;
+namespace Korowai\Tests\Lib\Context;
 
-use PHPUnit\Framework\TestCase;
+use Korowai\Testing\TestCase;
 
 use Korowai\Lib\Context\ContextFactoryInterface;
 use Korowai\Lib\Context\ContextFactoryStack;
@@ -25,7 +24,7 @@ use Korowai\Lib\Context\ContextManagerInterface;
  */
 class ContextFactoryStackTest extends TestCase
 {
-    use \Korowai\Lib\Basic\Tests\SingletonTestMethods;
+    use \Korowai\Tests\Lib\Basic\SingletonTestMethods;
 
     protected function getClassUnderTest()
     {
@@ -50,7 +49,7 @@ class ContextFactoryStackTest extends TestCase
                 return $this;
             }
 
-            public function exitContext(?\Throwable $exception = null) : bool
+            public function exitContext(\Throwable $exception = null) : bool
             {
                 return false;
             }
@@ -59,14 +58,12 @@ class ContextFactoryStackTest extends TestCase
 
     public function test__implements__ContextFactoryStackInterface()
     {
-        $interfaces = class_implements(ContextFactoryStack::class);
-        $this->assertContains(ContextFactoryStackInterface::class, $interfaces);
+        $this->assertImplementsInterface(ContextFactoryStackInterface::class, ContextFactoryStack::class);
     }
 
     public function test__implements__ContextFactoryInterface()
     {
-        $interfaces = class_implements(ContextFactoryStack::class);
-        $this->assertContains(ContextFactoryInterface::class, $interfaces);
+        $this->assertImplementsInterface(ContextFactoryInterface::class, ContextFactoryStack::class);
     }
 
     public function test__basicStackMethods()
@@ -117,7 +114,7 @@ class ContextFactoryStackTest extends TestCase
 
         $f0->expects($this->exactly(3))
            ->method('getContextManager')
-           ->withConsecutive(['foo'], ['foo'], ['geez'])
+           ->withConsecutive(['foo'], ['foo'], ['baz'])
            ->willReturn($cm0);
         $f1->expects($this->once())
            ->method('getContextManager')
@@ -125,7 +122,7 @@ class ContextFactoryStackTest extends TestCase
            ->willReturn($cm1);
         $f2->expects($this->once())
            ->method('getContextManager')
-           ->with('geez')
+           ->with('baz')
            ->willReturn(null);
 
         $stack = ContextFactoryStack::getInstance();
@@ -141,7 +138,7 @@ class ContextFactoryStackTest extends TestCase
         $this->assertSame($cm0, $stack->getContextManager('foo'));
 
         $stack->push($f2);
-        $this->assertSame($cm0, $stack->getContextManager('geez'));
+        $this->assertSame($cm0, $stack->getContextManager('baz'));
     }
 }
 

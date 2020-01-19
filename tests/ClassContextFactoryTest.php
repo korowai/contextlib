@@ -1,37 +1,53 @@
 <?php
-/**
- * @file Tests/ClassContextFactoryTest.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
 
-namespace Korowai\Lib\Context\Tests;
+namespace Korowai\Tests\Lib\Context;
 
-use PHPUnit\Framework\TestCase;
+use Korowai\Testing\TestCase;
 
 use Korowai\Lib\Context\ClassContextFactory;
 use Korowai\Lib\Context\AbstractManagedContextFactory;
 use Korowai\Lib\Context\ContextManagerInterface;
 
-class ClassYVO2VPY5 {};
-class ClassJG8MG9JQ {};
+class ClassYVO2VPY5
+{
+};
+class ClassJG8MG9JQ
+{
+};
 
 class BaseContextOLESLFOV implements ContextManagerInterface
 {
     public $wrapped;
-    public function __construct($wrapped) { $this->wrapped = $wrapped; }
-    public function enterContext() { return $this; }
-    public function exitContext(?\Throwable $exception = null) : bool { return false; }
+    public function __construct($wrapped)
+    {
+        $this->wrapped = $wrapped;
+    }
+    public function enterContext()
+    {
+        return $this;
+    }
+    public function exitContext(\Throwable $exception = null) : bool
+    {
+        return false;
+    }
 }
 
-class ContextYVO2VPY5 extends BaseContextOLESLFOV {}
-class ContextJG8MG9JQ extends BaseContextOLESLFOV {}
+class ContextYVO2VPY5 extends BaseContextOLESLFOV
+{
+}
+class ContextJG8MG9JQ extends BaseContextOLESLFOV
+{
+}
 
 /**
  * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
@@ -40,8 +56,7 @@ class ClassContextFactoryTest extends TestCase
 {
     public function test__extends__AbstractManagedContextFactory()
     {
-        $parents = class_parents(ClassContextFactory::class);
-        $this->assertContains(AbstractManagedContextFactory::class, $parents);
+        $this->assertExtendsClass(AbstractManagedContextFactory::class, ClassContextFactory::class);
     }
 
     public function test__construct__withoutArgs()
@@ -54,7 +69,9 @@ class ClassContextFactoryTest extends TestCase
     {
         $wrappers = [
             ClassYVO2VPY5::class => ContextYVO2VPY5::class,
-            '\\' . ClassJG8MG9JQ::class => function ($wrapped) { return new ContextJG8MG9JQ($wrapped); }
+            '\\' . ClassJG8MG9JQ::class => function ($wrapped) {
+                return new ContextJG8MG9JQ($wrapped);
+            }
         ];
 
         $factory = new ClassContextFactory($wrappers);
@@ -79,7 +96,9 @@ class ClassContextFactoryTest extends TestCase
     {
         $factory = new ClassContextFactory();
         $factory->register(ClassYVO2VPY5::class, ContextYVO2VPY5::class);
-        $factory->register('\\' . ClassJG8MG9JQ::class, function ($wrapped) { return new ContextJG8MG9JQ($wrapped); });
+        $factory->register('\\' . ClassJG8MG9JQ::class, function ($wrapped) {
+            return new ContextJG8MG9JQ($wrapped);
+        });
 
         $registry = $factory->getRegistry();
 
@@ -104,8 +123,8 @@ class ClassContextFactoryTest extends TestCase
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'argument 2 to ' . ClassContextFactory::class . '::register()' . 
-            ' must be a callable or a class name, string given' 
+            'argument 2 to ' . ClassContextFactory::class . '::register()' .
+            ' must be a callable or a class name, string given'
         );
         $factory->register(ClassJG8MG9JQ::class, 'In-Ex-Is-Tent');
     }
@@ -115,7 +134,7 @@ class ClassContextFactoryTest extends TestCase
         $factory = new ClassContextFactory();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessageRegExp(
+        $this->expectExceptionMessageMatches(
             '/argument 2 to ' . preg_quote(ClassContextFactory::class) .
             '::register\\(\\)' .
             ' must be a callable or a class name, int(?:eger)? given/'
@@ -127,7 +146,9 @@ class ClassContextFactoryTest extends TestCase
     {
         $wrappers = [
             ClassYVO2VPY5::class => ContextYVO2VPY5::class,
-            '\\' . ClassJG8MG9JQ::class => function ($wrapped) { return new ContextJG8MG9JQ($wrapped); }
+            '\\' . ClassJG8MG9JQ::class => function ($wrapped) {
+                return new ContextJG8MG9JQ($wrapped);
+            }
         ];
 
         $factory = new ClassContextFactory($wrappers);
@@ -156,7 +177,9 @@ class ClassContextFactoryTest extends TestCase
     {
         $wrappers = [
             ClassYVO2VPY5::class => ContextYVO2VPY5::class,
-            '\\' . ClassJG8MG9JQ::class => function ($wrapped) { return new ContextJG8MG9JQ($wrapped); }
+            '\\' . ClassJG8MG9JQ::class => function ($wrapped) {
+                return new ContextJG8MG9JQ($wrapped);
+            }
         ];
 
         $factory = new ClassContextFactory($wrappers);
@@ -177,7 +200,9 @@ class ClassContextFactoryTest extends TestCase
     {
         $wrappers = [
             ClassYVO2VPY5::class => ContextYVO2VPY5::class,
-            '\\' . ClassJG8MG9JQ::class => function ($wrapped) { return new ContextJG8MG9JQ($wrapped); }
+            '\\' . ClassJG8MG9JQ::class => function ($wrapped) {
+                return new ContextJG8MG9JQ($wrapped);
+            }
         ];
 
         $factory = new ClassContextFactory($wrappers);

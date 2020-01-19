@@ -1,12 +1,11 @@
 <?php
-/**
- * @file src/Korowai/Lib/Context/ClassContextFactory.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
@@ -27,7 +26,7 @@ class ClassContextFactory extends AbstractManagedContextFactory
     /**
      * Initializes the object
      *
-     * @param array $wrappers
+     * @param  array $wrappers
      */
     public function __construct(array $wrappers = [])
     {
@@ -57,8 +56,8 @@ class ClassContextFactory extends AbstractManagedContextFactory
     /**
      * Register new class.
      *
-     * @param string $class
-     * @param mixed $contextManager
+     * @param  string $class
+     * @param  mixed $contextManager
      *
      * @return ClassContextFactory $this
      */
@@ -83,7 +82,7 @@ class ClassContextFactory extends AbstractManagedContextFactory
     /**
      * Unregister the $class.
      *
-     * @param string $class
+     * @param  string $class
      * @return ClassContextFactory $this
      */
     public function remove(string $class) : ClassContextFactory

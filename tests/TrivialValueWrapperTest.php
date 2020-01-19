@@ -1,19 +1,18 @@
 <?php
-/**
- * @file Tests/TrivialValueWrapperTest.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
 
-namespace Korowai\Lib\Context\Tests;
+namespace Korowai\Tests\Lib\Context;
 
-use PHPUnit\Framework\TestCase;
+use Korowai\Testing\TestCase;
 
 use Korowai\Lib\Context\TrivialValueWrapper;
 use Korowai\Lib\Context\ContextManagerInterface;
@@ -25,8 +24,7 @@ class TrivialValueWrapperTest extends TestCase
 {
     public function test__implements__ContextManagerInterface()
     {
-        $interfaces = class_implements(TrivialValueWrapper::class);
-        $this->assertContains(ContextManagerInterface::class, $interfaces);
+        $this->assertImplementsInterface(ContextManagerInterface::class, TrivialValueWrapper::class);
     }
 
     public function test__construct()

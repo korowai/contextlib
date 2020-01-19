@@ -1,19 +1,18 @@
 <?php
-/**
- * @file Tests/DefaultContextFactoryTest.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
 
-namespace Korowai\Lib\Context\Tests;
+namespace Korowai\Tests\Lib\Context;
 
-use PHPUnit\Framework\TestCase;
+use Korowai\Testing\TestCase;
 
 use Korowai\Lib\Context\DefaultContextFactory;
 use Korowai\Lib\Context\ContextManagerInterface;
@@ -27,7 +26,7 @@ use Korowai\Lib\Context\TrivialValueWrapper;
 class DefaultContextFactoryTest extends TestCase
 {
     use \phpmock\phpunit\PHPMock;
-    use \Korowai\Lib\Basic\Tests\SingletonTestMethods;
+    use \Korowai\Tests\Lib\Basic\SingletonTestMethods;
 
     protected function getClassUnderTest()
     {
@@ -36,8 +35,7 @@ class DefaultContextFactoryTest extends TestCase
 
     public function test__implements__ContextFactoryInterface()
     {
-        $interfaces = class_implements(DefaultContextFactory::class);
-        $this->assertContains(ContextFactoryInterface::class, $interfaces);
+        $this->assertImplementsInterface(ContextFactoryInterface::class, DefaultContextFactory::class);
     }
 
     /**

@@ -1,12 +1,11 @@
 <?php
-/**
- * @file src/Korowai/Lib/Context/functions.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
@@ -16,7 +15,7 @@ namespace Korowai\Lib\Context;
 /**
  * Turns $arg into a context manager.
  *
- * @param mixed $arg
+ * @param  mixed $arg
  * @return ContextManagerInterface
  */
 function get_context_manager($arg) : ContextManagerInterface

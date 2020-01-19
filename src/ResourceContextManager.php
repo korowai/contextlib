@@ -1,12 +1,11 @@
 <?php
-/**
- * @file src/Korowai/Lib/Context/ResourceContextManager.php
+
+/*
+ * This file is part of Korowai framework.
  *
- * This file is part of the Korowai package
+ * (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
  *
- * @author Paweł Tomulik <ptomulik@meil.pw.edu.pl>
- * @package korowai\contextlib
- * @license Distributed under MIT license.
+ * Distributed under MIT license.
  */
 
 declare(strict_types=1);
@@ -133,7 +132,7 @@ class ResourceContextManager implements ContextManagerInterface
     /**
      * Constructs the context manager.
      *
-     * @param resource $resource The resource to be wrapped;
+     * @param  resource $resource The resource to be wrapped;
      */
     public function __construct($resource)
     {
@@ -159,7 +158,7 @@ class ResourceContextManager implements ContextManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function exitContext(?\Throwable $exception = null) : bool
+    public function exitContext(\Throwable $exception = null) : bool
     {
         $resource = $this->getResource();
         if (is_resource($resource)) {
@@ -195,11 +194,11 @@ class ResourceContextManager implements ContextManagerInterface
     {
         if (PHP_VERSION_ID >= 70200) {
             return function (object $resource) use ($method) {
-                return call_user_func(array($resource, $method));
+                return call_user_func([$resource, $method]);
             };
         } else {
             return function ($resource) use ($method) {
-                return call_user_func(array($resource, $method));
+                return call_user_func([$resource, $method]);
             };
         }
     }
